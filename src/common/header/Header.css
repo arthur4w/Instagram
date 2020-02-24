@@ -1,5 +1,5 @@
 .app-header {
-    background-color: #26372647;
+    background-color: #263238;
     height: 70px;
     width: 100%;
     display: flex;
@@ -55,7 +55,7 @@
 }
 
 
-.profile-pic {
+.profilePic {
     height: 100%;
     width: 100%;
     border-radius: 50%;
@@ -69,6 +69,13 @@
 
 .profileMenu-item{
     font: bold;
+}
+
+
+.profileIcon {
+    height: 75px;
+    width: 75px;
+    border: 20px solid white;
 }
 
 

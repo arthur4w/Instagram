@@ -12,17 +12,17 @@ class Header extends Component {
     constructor() {
         super();
         this.state = {
-            isUserLoggedIn: sessionStorage.getItem('access-token') != null,
+            isLoggedInUser: sessionStorage.getItem('access-token') != null,
             menuList: false
         }
     }
 
-    searchBoxChangeHandler = () => {
-
+    searchBoxChangeHandler = (e) => {
+        this.props.searchBoxHandler(e.target.value);
     }
 
     profilePictureClickHandler = (e) => {
-        this.setState({menuList: !this.state.menuList, anchorEl: this.state.anchorEl != null ? null : e.currentTarget});
+        this.setState({ menuList: !this.state.menuList, anchorEl: this.state.anchorEl != null ? null : e.currentTarget });
     }
 
     myAccountClickHandler = () => {
@@ -31,28 +31,28 @@ class Header extends Component {
 
     logOutClickHandler = () => {
         sessionStorage.removeItem('access-token');
-        this.setState({isUserLoggedIn: false});
+        this.setState({isLoggedInUser: false});
     }
     
     render() {
         const {open} = this.state;
         return (
             <div className='app-header'>
-                {!this.state.isUserLoggedIn && <Redirect to='/' />}
+                {!this.state.isLoggedInUser && <Redirect to='/' />}
                 <Link to="/home" className="app-logo">Image Viewer</Link>
-                {this.state.isUserLoggedIn &&
+                {this.state.isLoggedInUser &&
                     <div className="header-right-area">
                         
                         {this.props.pageId === 'home' &&
                             <div className="searchBox-headerarea">
-                                <SearchIcon className="searchIcon" />
-                                <Input placeholder="Search..." disableUnderline={true} className="searchBox" onChange={this.searchBoxChangeHandler} />
+                            <SearchIcon />
+                            <Input className="searchBox" placeholder="Search..." disableUnderline={true} onChange={this.searchBoxHandler} />
                             </div>
                         }
                         
                         <div>
-                            <IconButton className="profile-pictureIcon" onClick={this.profilePictureClickHandler}>
-                            <img src={this.props.profilePicture} alt="Profile Pic" className="profile-pic" />
+                            <IconButton className="profileIcon" onClick={this.profilePictureClickHandler}>
+                            <img src={this.props.profilePicture} alt="Profile Pic" className="profilePic" />
                             </IconButton>
                             <Menu className="profile-options" anchorEl={this.state.anchorEl} keepMounted open={this.state.menuList} onClose={this.profilePictureClickHandler}>
                                 <MenuItem className="profileMenu-item" onClick={this.myAccountClickHandler}><span>My Account</span>
