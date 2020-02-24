@@ -21,24 +21,24 @@ class Login extends Component {
             userNameRequired: "dispNone",
             passwordRequired: "dispNone",
             invalidCredentials: "dispNone",
-            isUserLoggedIn: sessionStorage.getItem('access-token')!= null
+            isLoggedInUser: sessionStorage.getItem('access-token')!= null
         }
     }
 
-    /* Handler for Username change */
+    
     userNameChangeHandler = (e) => {
         this.setState({username: e.target.value});
     }
 
-    /* Handler for Password change */
+    
     passwordChangeHandler = (e) => {
         this.setState({password: e.target.value});
     }
 
-    /* Handler for Login Button Click */
+    
     loginClickHandler = () => {
-        let loginUserName = "upgrad";
-        let loginPassword = "upgrad";
+        let loginUserName = "username";
+        let loginPassword = "password";
         let accessToken = "8661035776.d0fcd39.39f63ab2f88d4f9c92b0862729ee2784";
 
         this.state.username === "" ? this.setState(
@@ -52,7 +52,7 @@ class Login extends Component {
 
         if (this.state.username === "" || this.state.password === "") {
             this.setState({ invalidCredentials: "dispNone" });
-        } else if (this.state.username === loginUserName || this.state.password === loginPassword) {
+        } else if (this.state.username === loginUserName && this.state.password === loginPassword) {
             sessionStorage.setItem("access-token", accessToken);
             this.props.history.push("/home");
         } else {
@@ -64,7 +64,7 @@ class Login extends Component {
         return (
             <div>
                 {
-                this.state.isUserLoggedIn && <Redirect to='/home'/>
+                this.state.isLoggedInUser && <Redirect to='/home'/>
                 }
             <Header />
             <br/>
